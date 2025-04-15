@@ -33,7 +33,8 @@
       -L%{env:TREESITTER_LIBDIR=/usr/local/lib}
       -lstdc++
       -ltree-sitter
-      -Wl,-rpath,%{env:TREESITTER_LIBDIR=/usr/local/lib}
+      :standard
+      (:include c_library_flags.sexp)
     )
   )
   (foreign_stubs
@@ -44,3 +45,7 @@
            -I .)
   )
 )
+
+(rule
+ (targets c_library_flags.sexp)
+ (action (run ./config/discover.exe)))
